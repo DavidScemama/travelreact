@@ -1,12 +1,17 @@
+// components/EditVoyageForm.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const EditVoyageForm = ({ id, onUpdate }) => {
+  const router = useRouter();
   const [voyage, setVoyage] = useState(null);
   const [titre, setTitre] = useState('');
   const [description, setDescription] = useState('');
   const [lieu, setLieu] = useState('');
 
+  // Fonction pour récupérer les détails du voyage depuis l'API REST locale
   const fetchVoyageDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/voyages/${id}`);
@@ -16,6 +21,7 @@ const EditVoyageForm = ({ id, onUpdate }) => {
     }
   };
 
+  // Utilisez useEffect pour charger les détails du voyage au chargement de la page
   useEffect(() => {
     if (id) {
       fetchVoyageDetails();
@@ -40,13 +46,15 @@ const EditVoyageForm = ({ id, onUpdate }) => {
         updatedVoyage
       );
       onUpdate(response.data);
+      // Naviguer vers la page d'accueil après la mise à jour
+      router.push('/');
     } catch (error) {
       console.error('Erreur lors de la mise à jour du voyage', error);
     }
   };
 
   if (!voyage) {
-    return <div>Cliquer pour modifier le voyage</div>;
+    return <div>Loading...</div>;
   }
 
   return (

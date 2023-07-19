@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import EditVoyageForm from '../../components/EditVoyageForm';
@@ -6,6 +6,7 @@ import EditVoyageForm from '../../components/EditVoyageForm';
 const EditVoyagePage = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -21,14 +22,25 @@ const EditVoyagePage = () => {
       }
     };
 
-    fetchVoyageDetails();
-  }, [id]);
+    if (updated) {
+      // Naviguer vers la page d'accueil après la mise à jour
+      router.push('/');
+    } else {
+      fetchVoyageDetails();
+    }
+  }, [id, updated, router]);
+
+  // Fonction pour mettre à jour la liste des voyages dans la page d'accueil
+  const handleUpdateVoyage = () => {
+    setUpdated(true);
+  };
 
   return (
     <div>
-      {id && <EditVoyageForm id={id} />}
+      {id && <EditVoyageForm id={id} onUpdate={handleUpdateVoyage} />}
     </div>
   );
 };
 
 export default EditVoyagePage;
+
