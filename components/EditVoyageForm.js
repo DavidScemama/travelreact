@@ -53,31 +53,45 @@ const EditVoyageForm = ({ id, onUpdate }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/voyages/${id}`);
+      onUpdate(); // Mettre à jour la liste des voyages dans la page d'accueil après la suppression
+      router.push('/'); // Rediriger vers la page d'accueil après la suppression
+    } catch (error) {
+      console.error('Erreur lors de la suppression du voyage', error);
+    }
+  };
+
   if (!voyage) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (
-    <form onSubmit={handleUpdate}>
-      <input
-        type="text"
-        placeholder="Titre"
-        value={titre}
-        onChange={(e) => setTitre(e.target.value)}
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Lieu"
-        value={lieu}
-        onChange={(e) => setLieu(e.target.value)}
-      />
-      <button type="submit">Mettre à jour</button>
-    </form>
+    <div>
+      <form onSubmit={handleUpdate}>
+        <input
+          type="text"
+          placeholder="Titre"
+          value={titre}
+          onChange={(e) => setTitre(e.target.value)}
+        />
+        <textarea
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Lieu"
+          value={lieu}
+          onChange={(e) => setLieu(e.target.value)}
+        />
+        <button type="submit">Mettre à jour</button>
+      </form>
+      {/* Bouton pour supprimer le voyage */}
+      <button onClick={handleDelete}>Supprimer ce voyage</button>
+    </div>
   );
 };
 

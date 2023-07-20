@@ -4,10 +4,18 @@ import { useRouter } from 'next/router';
 import EditVoyageForm from '../../components/EditVoyageForm';
 import Link from 'next/link';
 
-
 const VoyageDetails = () => {
   const router = useRouter();
   const { id } = router.query;
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/voyages/${id}`);
+      router.push('/'); // Rediriger vers la page d'accueil après la suppression
+    } catch (error) {
+      console.error('Erreur lors de la suppression du voyage', error);
+    }
+  };
 
   const [voyage, setVoyage] = useState(null);
 
@@ -20,7 +28,6 @@ const VoyageDetails = () => {
     }
   };
 
-  
   useEffect(() => {
     if (id) {
       fetchVoyageDetails();
@@ -32,7 +39,7 @@ const VoyageDetails = () => {
   };
 
   if (!voyage) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (
@@ -44,10 +51,11 @@ const VoyageDetails = () => {
       <Link legacyBehavior href={`/edit/${voyage.id}`}>
         <a>Editer ce voyage</a>
       </Link>
-
       <EditVoyageForm voyage={voyage} onUpdate={handleUpdateVoyage} />
+      <button onClick={handleDelete}>Supprimer ce voyage</button>
     </div>
   );
 };
 
 export default VoyageDetails;
+
