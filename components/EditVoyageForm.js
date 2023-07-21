@@ -54,12 +54,16 @@ const EditVoyageForm = ({ id, onUpdate }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:5000/voyages/${id}`);
-      onUpdate(); // Mettre à jour la liste des voyages dans la page d'accueil après la suppression
-      router.push('/'); // Rediriger vers la page d'accueil après la suppression
-    } catch (error) {
-      console.error('Erreur lors de la suppression du voyage', error);
+    // Afficher la modale de confirmation de suppression
+    const confirmDelete = window.confirm('Voulez-vous vraiment supprimer ce voyage ?');
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:5000/voyages/${id}`);
+        onUpdate(); // Mettre à jour la liste des voyages dans la page d'accueil après la suppression
+        router.push('/'); // Rediriger vers la page d'accueil après la suppression
+      } catch (error) {
+        console.error('Erreur lors de la suppression du voyage', error);
+      }
     }
   };
 
@@ -68,30 +72,32 @@ const EditVoyageForm = ({ id, onUpdate }) => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleUpdate}>
-        <input
-          type="text"
-          placeholder="Titre"
-          value={titre}
-          onChange={(e) => setTitre(e.target.value)}
-        />
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Lieu"
-          value={lieu}
-          onChange={(e) => setLieu(e.target.value)}
-        />
-        <button type="submit">Mettre à jour</button>
-      </form>
-      {/* Bouton pour supprimer le voyage */}
-      <button onClick={handleDelete}>Supprimer ce voyage</button>
-    </div>
+    <form onSubmit={handleUpdate}>
+      <input
+        type="text"
+        placeholder="Titre"
+        value={titre}
+        onChange={(e) => setTitre(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Lieu"
+        value={lieu}
+        onChange={(e) => setLieu(e.target.value)}
+      />
+      <button type="submit">Mettre à jour</button>
+
+      {/* Bouton pour afficher la modale de confirmation de suppression */}
+      <button type="button" onClick={handleDelete}>
+        Supprimer ce voyage
+      </button>
+    </form>
   );
 };
 

@@ -1,5 +1,3 @@
-// pages/VoyageDetails.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -9,6 +7,11 @@ const VoyageDetails = () => {
   const { id } = router.query;
 
   const [voyage, setVoyage] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [titre, setTitre] = useState('');
+  const [description, setDescription] = useState('');
+  const [lieu, setLieu] = useState('');
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   // Fonction pour récupérer les détails du voyage depuis l'API REST locale
   const fetchVoyageDetails = async () => {
@@ -27,28 +30,93 @@ const VoyageDetails = () => {
     }
   }, [id]);
 
+  // Gérer le mode édition
+  const toggleEditing = () => {
+    setEditing(prevEditing => !prevEditing);
+  };
+
+  // Gérer la mise à jour du voyage
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const updatedVoyage = { titre, description, lieu };
+      const response = await axios.put(
+        `http://localhost:5000/voyages/${id}`,
+        updatedVoyage
+      );
+      setVoyage(response.data);
+      toggleEditing();
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du voyage', error);
+    }
+  };
+
   // Gérer la suppression du voyage
-  const handleVoyageDeleted = async (id) => {
+  const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:5000/voyages/${id}`);
-      router.push('/'); // Rediriger vers la page d'accueil après la suppression
+      router.push('/');
     } catch (error) {
       console.error('Erreur lors de la suppression du voyage', error);
     }
   };
 
+  // Afficher la modale de confirmation
+  const handleShowConfirmationModal = () => {
+    setShowConfirmationModal(true);
+  };
+
+  // Cacher la modale de confirmation
+  const handleHideConfirmationModal = () => {
+    setShowConfirmationModal(false);
+  };
+
   if (!voyage) {
-    // Si le voyage n'est pas encore chargé, on retourne une chaîne vide pour éviter d'afficher le "Loading..."
     return null;
   }
 
   return (
     <div>
-      <h2>{voyage.titre}</h2>
-      <p>{voyage.description}</p>
-      <p>Lieu : {voyage.lieu}</p>
-      {/* Bouton pour supprimer le voyage */}
-      <button onClick={() => handleVoyageDeleted(voyage.id)}>Supprimer ce voyage</button>
+      {editing ? (
+        <form onSubmit={handleUpdate}>
+          <input
+            type="text"
+            placeholder="Titre"
+            value={titre}
+            onChange={(e) => setTitre(e.target.value)}
+          />
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Lieu"
+            value={lieu}
+            onChange={(e) => setLieu(e.target.value)}
+          />
+          <button type="submit">Mettre à jour</button>
+        </form>
+      ) : (
+        <div>
+          <h2>{voyage.titre}</h2>
+          <p>{voyage.description}</p>
+          <p>Lieu : {voyage.lieu}</p>
+
+          <button onClick={toggleEditing}>Modifier ce voyage</button>
+          <button onClick={handleShowConfirmationModal}>Supprimer ce voyage</button>
+
+          {showConfirmationModal && (
+            <div>
+              <p>Êtes-vous sûr de vouloir supprimer ce voyage ?</p>
+              <button onClick={handleDelete}>Oui</button>
+              <button onClick={handleHideConfirmationModal}>Non</button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

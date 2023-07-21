@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family:'Open Sans';
+  }
+  
+  /* Barre de recherche */
+  .search-bar {
+    border: none;
+    width: 15%;
+    border-radius: 5px;
+    margin: 10px;
+    background-color: white;
+    font-size: 16px;
+    outline: none;
+    float: right;
+    padding: 15px;
+    border-color: none;
+  }
+
