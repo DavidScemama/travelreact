@@ -3,19 +3,105 @@ body {
     padding: 0;
     height: 100vh;
     font-family:'Open Sans';
+    text-decoration: none;
+  }
+
+  .parent{
+    position: relative;
+  }
+
+
+    /* bckg */
+  .child1{
+    position: absolute;
+    width: 100vw;
+    clip: rect(0, 0, 50vh, 0%);
+    object-fit:cover;
+    height: 50vh;
+    z-index: -999;
   }
   
   /* Barre de recherche */
-  .search-bar {
+  .child2 {
     border: none;
     width: 15%;
     border-radius: 5px;
-    margin: 10px;
     background-color: white;
     font-size: 16px;
     outline: none;
-    float: right;
     padding: 15px;
     border-color: none;
+    z-index: 1000;
+    margin-top: 40vh;
+    margin-left: 41vw;
+
   }
 
+  h1{
+    display: flex;
+    justify-content:center;
+    margin-top: 8vh;
+    padding: 0;
+  }
+
+  form{
+    display: flex;
+    justify-content:center;
+    margin-left: 20px;
+    margin-top: 5vh;
+  }
+
+  .container{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  label{
+    margin-left: 50px;
+  }
+
+.titlecreation{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+ul{
+    list-style-type:none;
+    display: flex; /* Utilisez flex pour aligner les blocs */
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 10vh;
+    margin-left: 10px;
+    padding: 0;
+    text-decoration: none;
+}
+
+li{
+    height: 25vh;
+    width: 25vw;
+    margin: 20px;
+    background-color:#ffffff ;
+    border : solid #000000  1px;
+    box-shadow: rgba(0, 0, 0,.1) 0 -
+    2px 5px inset;
+    border-radius: 5px;
+    color: black;
+    font-size: large;
+    line-height: normal;
+    position: relative;
+    text-decoration: none;
+}
+
+
+.voyagename{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.blocshow{
+  margin:40px;
+}

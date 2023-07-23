@@ -50,25 +50,35 @@ const Homepage = () => {
 
   return (
     <div>
+      <div className='parent'>
+      <img
+        src="https://images.pexels.com/photos/2082949/pexels-photo-2082949.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" // Remplacez cette URL par l'URL de votre image d'accueil
+        alt="Image d'accueil"
+        className='child1'
+      />
       <input
-        className='search-bar'
+        className='child2'
         type="text"
         placeholder="Rechercher un voyage..."
         value={searchText}
         onChange={e => setSearchText(e.target.value)}
-      />
+        />
+        <h1>Créez votre liste de voyage</h1>
+      </div>
 
-      {/* Formulaire de création */}
-      <CreateVoyageForm onVoyageCreated={handleVoyageCreated} />
+    
+      <CreateVoyageForm
+        className='formulaire'
+        onVoyageCreated={handleVoyageCreated} />
+    
 
-      {/* Liste des voyages filtrée */}
       <ul>
         {filteredVoyages.map(voyage => (
           <li key={voyage.id}>
-            {/* Lien vers la page de détails du voyage */}
             <Link href="/show/[id]" as={`/show/${voyage.id}`}>
-              <div>{voyage.titre}</div>
+              <div className='voyagename'>{voyage.titre}</div>
             </Link>
+            <p>{voyage.lieu}</p>
             <button onClick={() => showAlertModal(voyage.id)}>Supprimer ce voyage</button>
           </li>
         ))}

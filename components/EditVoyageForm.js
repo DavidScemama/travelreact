@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import styles from '../styles/style.css';
+
 
 const EditVoyageForm = ({ id, onUpdate }) => {
   const router = useRouter();
@@ -72,6 +74,8 @@ const EditVoyageForm = ({ id, onUpdate }) => {
   }
 
   return (
+    <div>
+      <h1>Modifiez ce voyage</h1>
     <form onSubmit={handleUpdate}>
       <input
         type="text"
@@ -93,11 +97,11 @@ const EditVoyageForm = ({ id, onUpdate }) => {
       />
       <button type="submit">Mettre à jour</button>
 
-      {/* Bouton pour afficher la modale de confirmation de suppression */}
       <button type="button" onClick={handleDelete}>
         Supprimer ce voyage
       </button>
-    </form>
+      </form>
+      </div>
   );
 };
 

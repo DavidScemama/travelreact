@@ -30,16 +30,16 @@ const CreateVoyageForm = ({ onVoyageCreated }) => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Titre:
-        <input type="text" name="titre" value={formData.titre} onChange={handleChange} />
+        Titre :
+        <input className='titlecreation' type="text" name="titre" value={formData.titre} onChange={handleChange} />
       </label>
       <label>
-        Description:
-        <input type="text" name="description" value={formData.description} onChange={handleChange} />
+        Description :
+        <input className='titlecreation' type="text" name="description" value={formData.description} onChange={handleChange} />
       </label>
       <label>
-        Lieu:
-        <input type="text" name="lieu" value={formData.lieu} onChange={handleChange} />
+        Lieu :
+        <input className='titlecreation' type="text" name="lieu" value={formData.lieu} onChange={handleChange} />
       </label>
       <button type="submit">Créer Voyage</button>
     </form>

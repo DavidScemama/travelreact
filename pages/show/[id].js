@@ -52,16 +52,6 @@ const VoyageDetails = () => {
     }
   };
 
-  // Gérer la suppression du voyage
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:5000/voyages/${id}`);
-      router.push('/');
-    } catch (error) {
-      console.error('Erreur lors de la suppression du voyage', error);
-    }
-  };
-
   if (!voyage) {
     return null;
   }
@@ -90,14 +80,13 @@ const VoyageDetails = () => {
           <button type="submit">Mettre à jour</button>
         </form>
       ) : (
-        <div>
+        <div className='blocshow'>
           <h2>{voyage.titre}</h2>
-          <p>{voyage.description}</p>
+          <p>Description : {voyage.description}</p>
           <p>Lieu : {voyage.lieu}</p>
           <Link href={`/edit/${voyage.id}`}>
             <button>Modifier ce voyage</button>
           </Link>
-          <button onClick={handleDelete}>Supprimer ce voyage</button>
         </div>
       )}
     </div>
