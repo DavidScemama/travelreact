@@ -34,13 +34,13 @@ const Homepage = () => {
   const handleDeleteVoyage = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/voyages/${id}`);
-      fetchVoyages(); // Fetch the updated list of voyages after deletion
+      fetchVoyages(); 
     } catch (error) {
       console.error('Erreur lors de la suppression du voyage', error);
     }
   };
 
-  // Function to show the alert modal
+
   const showAlertModal = (id) => {
     const confirmation = window.confirm('Êtes-vous sûr de vouloir supprimer ce voyage ?');
     if (confirmation) {
@@ -52,7 +52,7 @@ const Homepage = () => {
     <div>
       <div className='parent'>
       <img
-        src="https://images.pexels.com/photos/2082949/pexels-photo-2082949.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" // Remplacez cette URL par l'URL de votre image d'accueil
+        src="https://images.pexels.com/photos/2082949/pexels-photo-2082949.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
         alt="Image d'accueil"
         className='child1'
       />

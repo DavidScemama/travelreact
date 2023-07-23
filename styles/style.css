@@ -67,7 +67,7 @@ body {
 
 ul{
     list-style-type:none;
-    display: flex; /* Utilisez flex pour aligner les blocs */
+    display: flex;
     flex-wrap: wrap; 
     justify-content: center;
     align-items: center;

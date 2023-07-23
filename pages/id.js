@@ -13,7 +13,7 @@ const VoyageDetails = () => {
   const [lieu, setLieu] = useState('');
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
-  // Fonction pour récupérer les détails du voyage depuis l'API REST locale
+
   const fetchVoyageDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/voyages/${id}`);
@@ -23,19 +23,19 @@ const VoyageDetails = () => {
     }
   };
 
-  // Utilisez useEffect pour charger les détails du voyage au chargement de la page
+
   useEffect(() => {
     if (id) {
       fetchVoyageDetails();
     }
   }, [id]);
 
-  // Gérer le mode édition
+
   const toggleEditing = () => {
     setEditing(prevEditing => !prevEditing);
   };
 
-  // Gérer la mise à jour du voyage
+
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -52,7 +52,7 @@ const VoyageDetails = () => {
     }
   };
 
-  // Gérer la suppression du voyage
+
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:5000/voyages/${id}`);
@@ -62,12 +62,12 @@ const VoyageDetails = () => {
     }
   };
 
-  // Afficher la modale de confirmation
+  
   const handleShowConfirmationModal = () => {
     setShowConfirmationModal(true);
   };
 
-  // Cacher la modale de confirmation
+  
   const handleHideConfirmationModal = () => {
     setShowConfirmationModal(false);
   };

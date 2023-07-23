@@ -13,7 +13,6 @@ const EditVoyageForm = ({ id, onUpdate }) => {
   const [description, setDescription] = useState('');
   const [lieu, setLieu] = useState('');
 
-  // Fonction pour récupérer les détails du voyage depuis l'API REST locale
   const fetchVoyageDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/voyages/${id}`);
@@ -23,7 +22,6 @@ const EditVoyageForm = ({ id, onUpdate }) => {
     }
   };
 
-  // Utilisez useEffect pour charger les détails du voyage au chargement de la page
   useEffect(() => {
     if (id) {
       fetchVoyageDetails();
@@ -48,7 +46,6 @@ const EditVoyageForm = ({ id, onUpdate }) => {
         updatedVoyage
       );
       onUpdate(response.data);
-      // Naviguer vers la page d'accueil après la mise à jour
       router.push('/');
     } catch (error) {
       console.error('Erreur lors de la mise à jour du voyage', error);
@@ -56,13 +53,12 @@ const EditVoyageForm = ({ id, onUpdate }) => {
   };
 
   const handleDelete = async () => {
-    // Afficher la modale de confirmation de suppression
     const confirmDelete = window.confirm('Voulez-vous vraiment supprimer ce voyage ?');
     if (confirmDelete) {
       try {
         await axios.delete(`http://localhost:5000/voyages/${id}`);
-        onUpdate(); // Mettre à jour la liste des voyages dans la page d'accueil après la suppression
-        router.push('/'); // Rediriger vers la page d'accueil après la suppression
+        onUpdate(); 
+        router.push('/'); 
       } catch (error) {
         console.error('Erreur lors de la suppression du voyage', error);
       }

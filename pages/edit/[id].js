@@ -23,14 +23,13 @@ const EditVoyagePage = () => {
     };
 
     if (updated) {
-      // Naviguer vers la page d'accueil après la mise à jour
       router.push('/');
     } else {
       fetchVoyageDetails();
     }
   }, [id, updated, router]);
 
-  // Fonction pour mettre à jour la liste des voyages dans la page d'accueil
+
   const handleUpdateVoyage = () => {
     setUpdated(true);
   };
