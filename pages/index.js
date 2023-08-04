@@ -31,22 +31,6 @@ const Homepage = () => {
     setVoyages([...voyages, newVoyage]);
   };
 
-  const handleDeleteVoyage = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/voyages/${id}`);
-      fetchVoyages(); 
-    } catch (error) {
-      console.error('Erreur lors de la suppression du voyage', error);
-    }
-  };
-
-
-  const showAlertModal = (id) => {
-    const confirmation = window.confirm('Êtes-vous sûr de vouloir supprimer ce voyage ?');
-    if (confirmation) {
-      handleDeleteVoyage(id);
-    }
-  };
 
   return (
     <div>
@@ -71,15 +55,17 @@ const Homepage = () => {
         className='formulaire'
         onVoyageCreated={handleVoyageCreated} />
     
-
+    <p>Ma liste de voyage</p>
       <ul>
         {filteredVoyages.map(voyage => (
           <li key={voyage.id}>
             <Link href="/show/[id]" as={`/show/${voyage.id}`}>
+              <div className='blocbloc'>
               <div className='voyagename'>{voyage.titre}</div>
+                <p className='lieu'>{voyage.lieu}</p>
+              </div>              
+              <img className='image' src={voyage.imageURL} alt={voyage.lieu} />
             </Link>
-            <p>{voyage.lieu}</p>
-            <button onClick={() => showAlertModal(voyage.id)}>Supprimer ce voyage</button>
           </li>
         ))}
       </ul>

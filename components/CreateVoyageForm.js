@@ -2,46 +2,69 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const CreateVoyageForm = ({ onVoyageCreated }) => {
-  const [formData, setFormData] = useState({
-    titre: '',
-    description: '',
-    lieu: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [titre, setTitre] = useState('');
+  const [description, setDescription] = useState('');
+  const [lieu, setLieu] = useState('');
+  const [imageURL, setImageURL] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+   
+    const image = await fetchImageByLocation(lieu);
+    setImageURL(image);
+
+  
     try {
-      const response = await axios.post('http://localhost:5000/voyages', formData);
+      const newVoyage = {
+        titre,
+        description,
+        lieu,
+        imageURL: image, 
+      };
+
+      const response = await axios.post('http://localhost:5000/voyages', newVoyage);
       onVoyageCreated(response.data);
-      setFormData({
-        titre: '',
-        description: '',
-        lieu: ''
-      });
+
+    
+      setTitre('');
+      setDescription('');
+      setLieu('');
+      setImageURL(''); 
     } catch (error) {
       console.error('Erreur lors de la création du voyage', error);
     }
   };
 
+  const fetchImageByLocation = async (location) => {
+    const response = await axios.get(`https://api.unsplash.com/photos/random?query=${location}&client_id=USTHmL9rpRzvXvVWEu4HYQ83BKm7Vf1QR4XAZFtCBik`);
+    return response.data.urls.regular;
+  };
+
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Titre :
-        <input className='titlecreation' type="text" name="titre" value={formData.titre} onChange={handleChange} />
-      </label>
-      <label>
-        Description :
-        <input className='titlecreation' type="text" name="description" value={formData.description} onChange={handleChange} />
-      </label>
-      <label>
-        Lieu :
-        <input className='titlecreation' type="text" name="lieu" value={formData.lieu} onChange={handleChange} />
-      </label>
-      <button type="submit">Créer Voyage</button>
+      <input 
+        className='CreateForm'
+        type="text"
+        placeholder="Titre"
+        value={titre}
+        onChange={(e) => setTitre(e.target.value)}
+      />
+      <input
+       className='CreateForm'
+        type="text"
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <input
+        className='CreateForm'
+        type="text"
+        placeholder="Lieu"
+        value={lieu}
+        onChange={(e) => setLieu(e.target.value)}
+      />
+      <button className='Addbutton'type="submit">Ajouter le voyage</button>
     </form>
   );
 };

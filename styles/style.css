@@ -60,9 +60,25 @@ body {
     margin-left: 50px;
   }
 
+  .CreateForm{
+    margin-left: 50px;
+  }
+
 .titlecreation{
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.Addbutton{
+  margin-left: 50px;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  
+  
+
 }
 
 ul{
@@ -76,32 +92,51 @@ ul{
     margin-left: 10px;
     padding: 0;
     text-decoration: none;
+    position: relative;
 }
 
 li{
     height: 25vh;
     width: 25vw;
     margin: 20px;
-    background-color:#ffffff ;
-    border : solid #000000  1px;
-    box-shadow: rgba(0, 0, 0,.1) 0 -
-    2px 5px inset;
+    background-color: #000000;
     border-radius: 5px;
     color: black;
     font-size: large;
-    line-height: normal;
     position: relative;
-    text-decoration: none;
 }
 
 
 .voyagename{
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    text-decoration: none;
+    position: absolute;
+    z-index: 999;
+    color: white;
+    margin-top: 32%;
+    font-weight: bold;
 }
 
 .blocshow{
-  margin:40px;
+  margin: 40px;
 }
+
+.image{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.lieu{
+  margin: 0;
+  margin-top: 40%;
+  position: absolute;
+  z-index: 999;
+  color: white;
+}
+
+.blocbloc{
+  margin-left: 20px;
+}
+
+
+
